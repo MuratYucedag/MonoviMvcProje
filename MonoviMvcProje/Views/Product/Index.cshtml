@@ -1,0 +1,27 @@
+﻿@using MonoviMvcProje.Models.Entity
+@model List<TblProduct>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MonoviLayout.cshtml";
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<h2>Ürün Listesi</h2>
+<table class="table table-hover" style="margin-left:50px">
+    <tr>
+        <th>ID</th>
+        <th>Ürün Adı</th>
+        <th>Stok</th>
+        <th>Fiyat</th>
+        <th>Kategori</th>
+    </tr>
+    @foreach(var x in Model)
+    {
+        <tr>
+            <td>@x.ProdcutID</td>
+            <td>@x.ProductName</td>
+            <td>@x.Stock</td>
+            <td>@x.Price</td>
+            <td>@x.Category</td>
+        </tr>
+    }
+</table>

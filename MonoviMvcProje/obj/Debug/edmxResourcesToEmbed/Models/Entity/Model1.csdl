@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbMonoviModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TblCategory">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TblProduct" Relationship="Self.FK_TblProduct_TblCategory" FromRole="TblCategory" ToRole="TblProduct" />
+  </EntityType>
+  <EntityType Name="TblProduct">
+    <Key>
+      <PropertyRef Name="ProdcutID" />
+    </Key>
+    <Property Name="ProdcutID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Stock" Type="Int16" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Category" Type="Int32" />
+    <NavigationProperty Name="TblCategory" Relationship="Self.FK_TblProduct_TblCategory" FromRole="TblProduct" ToRole="TblCategory" />
+  </EntityType>
+  <Association Name="FK_TblProduct_TblCategory">
+    <End Role="TblCategory" Type="Self.TblCategory" Multiplicity="0..1" />
+    <End Role="TblProduct" Type="Self.TblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblCategory">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="TblProduct">
+        <PropertyRef Name="Category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbMonoviEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TblCategory" EntityType="Self.TblCategory" />
+    <EntitySet Name="TblProduct" EntityType="Self.TblProduct" />
+    <AssociationSet Name="FK_TblProduct_TblCategory" Association="Self.FK_TblProduct_TblCategory">
+      <End Role="TblCategory" EntitySet="TblCategory" />
+      <End Role="TblProduct" EntitySet="TblProduct" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
